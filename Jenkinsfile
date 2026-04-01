@@ -2,29 +2,28 @@ pipeline {
     agent any
 
     stages {
-
         stage('Install Dependencies') {
             steps {
-                sh 'python3 -m pip install --user -r requirements.txt'
+                sh 'pip3 install --user -r requirements.txt'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'pytest || echo "Tests ran"'
+                sh 'pytest tests'
             }
         }
 
-        stage('Create Zip') {
+        stage('Build Docker Image') {
             steps {
-                sh 'zip -r complete-$(date +%F-%H-%M).zip .'
+                sh 'docker build -t inventory-api .'
             }
         }
-    }
 
-    post {
-        always {
-            archiveArtifacts artifacts: '*.zip'
+        stage('Run Docker Container') {
+            steps {
+                sh 'docker run -d -p 8000:8000 inventory-api'
+            }
         }
     }
 }
