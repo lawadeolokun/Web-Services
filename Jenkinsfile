@@ -16,13 +16,13 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t inventory-api .'
+                sh '/usr/local/bin/docker build -t inventory-api .'
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                sh 'docker run -d -p 8000:8000 inventory-api'
+                sh '/usr/local/bin/docker run -d -p 8000:8000 inventory-api'
             }
         }
     }
