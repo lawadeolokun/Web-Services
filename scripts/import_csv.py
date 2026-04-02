@@ -11,7 +11,6 @@ collection = db["products"]
 # Load CSV
 df = pd.read_csv("data/products.csv")
 
-# Convert to dict
 data = df.to_dict(orient="records")
 
 for item in data:
@@ -19,7 +18,9 @@ for item in data:
     item["UnitPrice"] = float(item["UnitPrice"])
     item["StockQuantity"] = int(item["StockQuantity"])
 
+collection.delete_many({})
+
 # Insert into MongoDB
 collection.insert_many(data)
 
-print("Data inserted into MongoDB Atlas!")
+print("Data inserted into MongoDB Atlas")
