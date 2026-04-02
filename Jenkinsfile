@@ -37,7 +37,7 @@ pipeline {
 
         stage('Generate README') {
             steps {
-                sh 'python3 generate_readme.py'
+                sh 'python3 readme.py'
             }
         }
 
