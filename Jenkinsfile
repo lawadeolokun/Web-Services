@@ -5,13 +5,15 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh 'pip3 install -r requirements.txt'
-                sh '/Users/lawadeolokun/.nvm/versions/node/v22.13.1/bin/npm install -g newman'
             }
         }
 
         stage('Run Newman Tests') {
             steps {
-                sh 'newman run tests/postman/collection.json'
+                sh '''
+                export PATH=/Users/lawadeolokun/.nvm/versions/node/v22.13.1/bin:$PATH
+                npx newman run tests/postman/collection.json
+                '''
             }
         }
 
