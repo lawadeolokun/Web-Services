@@ -31,7 +31,7 @@ pipeline {
 
         stage('Stop Container') {
             steps {
-                sh 'docker stop $(docker ps -q --filter ancestor=inventory-api)'
+                sh '/usr/local/bin/docker stop $(/usr/local/bin/docker ps -q --filter ancestor=inventory-api) || true'
             }
         }
 
