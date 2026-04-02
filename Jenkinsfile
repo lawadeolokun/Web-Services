@@ -8,15 +8,6 @@ pipeline {
             }
         }
 
-        stage('Run Newman Tests') {
-            steps {
-                sh '''
-                export PATH=/Users/lawadeolokun/.nvm/versions/node/v22.13.1/bin:$PATH
-                npx newman run tests/postman/collection.json
-                '''
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 sh '/usr/local/bin/docker build -t inventory-api .'
@@ -26,6 +17,15 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 sh '/usr/local/bin/docker run -d -p 8000:8000 inventory-api'
+            }
+        }
+
+        stage('Run Newman Tests') {
+            steps {
+                sh '''
+                export PATH=/Users/lawadeolokun/.nvm/versions/node/v22.13.1/bin:$PATH
+                npx newman run tests/postman/collection.json
+                '''
             }
         }
 
