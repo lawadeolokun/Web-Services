@@ -5,7 +5,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh 'pip3 install -r requirements.txt'
-                sh 'npm install -g newman'
+                sh '/Users/lawadeolokun/.nvm/versions/node/v22.13.1/bin/npm install -g newman'
             }
         }
 
